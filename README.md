@@ -11,8 +11,10 @@ To install this program, follow these steps:
    pip install opencv-python mediapipe
    
   Clone the repository containing the holistic_detection.py file:
+  
       git clone <reponing_git_manziili>
   Run the holistic_detection.py file:
+  
       python holistic_detection.py
       
 <h2>Additional Information</h2>
