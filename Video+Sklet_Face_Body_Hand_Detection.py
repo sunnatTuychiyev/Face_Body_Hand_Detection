@@ -6,7 +6,7 @@ mp_holistic = mp.solutions.holistic
 holistic = mp_holistic.Holistic(min_detection_confidence=0.2, min_tracking_confidence=0.2)
 
 # Open the video stream
-cap = cv2.VideoCapture('/Users/tuychiyevsunnatillo/Desktop/video.mp4')
+cap = cv2.VideoCapture('Enter_the_location_of_the_video,mp4')
 
 while cap.isOpened():
     ret, frame = cap.read()
