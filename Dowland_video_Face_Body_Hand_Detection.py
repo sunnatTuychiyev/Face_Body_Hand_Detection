@@ -6,14 +6,14 @@ mp_holistic = mp.solutions.holistic
 holistic = mp_holistic.Holistic(min_detection_confidence=0.2, min_tracking_confidence=0.2)
 
 # Open the video stream
-cap = cv2.VideoCapture('/Users/tuychiyevsunnatillo/Desktop/Homepage.MP4')
+cap = cv2.VideoCapture('Enter_the_location_of_the_video,mp4')
 
 # Skeleton position
 sklet_x, sklet_y = 50, 50
 
 # Prepare video recording
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-out = cv2.VideoWriter('/Users/tuychiyevsunnatillo/Desktop/output.mp4', fourcc, 20.0, (int(cap.get(3)), int(cap.get(4))))
+out = cv2.VideoWriter('Output_Enter_the_location_of_the_video,mp4', fourcc, 20.0, (int(cap.get(3)), int(cap.get(4))))
 
 while cap.isOpened():
     ret, frame = cap.read()
