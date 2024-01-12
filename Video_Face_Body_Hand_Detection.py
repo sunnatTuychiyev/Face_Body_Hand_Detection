@@ -1,14 +1,14 @@
 import cv2
 import mediapipe as mp
 
-# MediaPipe tanlashi va yuz, tanasi, qo'l va body detektorlarni yaratish
+# Initialize MediaPipe holistic model for face, body, hand, and pose detection
 mp_holistic = mp.solutions.holistic
 holistic = mp_holistic.Holistic(min_detection_confidence=0.2, min_tracking_confidence=0.2)
 
-# Video fluxini ochish
-cap = cv2.VideoCapture('/Users/tuychiyevsunnatillo/Desktop/B.MP4')
+# Open video stream
+cap = cv2.VideoCapture('Enter_the_location_of_the_video,mp4')
 
-# Skletning joylashuvi
+# Skeleton position
 sklet_x, sklet_y = 50, 50
 
 while cap.isOpened():
@@ -17,30 +17,30 @@ while cap.isOpened():
     if not ret:
         break
 
-    # MediaPipe tanlashi yordamida yuz, tanasi, qo'l va body detektorlarni ishga tushirish
+    # Process face, body, hand, and pose detection using MediaPipe
     results = holistic.process(frame)
 
-    # Qora fonni qo'shish
+    # Add a black background
     frame[:] = [0, 0, 0]
 
-    # Skletni chiqarish
-  #  cv2.putText(frame, 'Skeleton', (sklet_x, sklet_y), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+    # Uncomment the following line to display the skeleton
+    # cv2.putText(frame, 'Skeleton', (sklet_x, sklet_y), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 
-    # Tanilgan yuzlarni chiqarish
+    # Draw detected faces
     if results.face_landmarks:
         for landmark in results.face_landmarks.landmark:
             ih, iw, _ = frame.shape
             x, y = int(landmark.x * iw), int(landmark.y * ih)
             cv2.circle(frame, (x, y), 2, (0, 255, 0), -1)
 
-    # Tanilgan tanalarni chiqarish
+    # Draw detected body landmarks
     if results.pose_landmarks:
         for landmark in results.pose_landmarks.landmark:
             ih, iw, _ = frame.shape
             x, y = int(landmark.x * iw), int(landmark.y * ih)
             cv2.circle(frame, (x, y), 2, (255, 0, 0), -1)
 
-    # Tanilgan qollarni chiqarish
+    # Draw detected hand landmarks
     if results.left_hand_landmarks:
         for landmark in results.left_hand_landmarks.landmark:
             ih, iw, _ = frame.shape
@@ -53,22 +53,22 @@ while cap.isOpened():
             x, y = int(landmark.x * iw), int(landmark.y * ih)
             cv2.circle(frame, (x, y), 2, (0, 0, 255), -1)
 
-    # Body detektori
+    # Draw body connections
     if results.pose_landmarks:
-        # Anatomik nuqtalarni bog'lab chizish
+        # Connect the anatomical landmarks
         mp_drawing = mp.solutions.drawing_utils
         mp_drawing.draw_landmarks(frame, results.pose_landmarks, mp_holistic.POSE_CONNECTIONS)
 
-        # Qo'l va body chizish uchun chiziqlar
+        # Draw connections for hands and body
         mp_drawing.draw_landmarks(frame, results.right_hand_landmarks, mp_holistic.HAND_CONNECTIONS)
         mp_drawing.draw_landmarks(frame, results.left_hand_landmarks, mp_holistic.HAND_CONNECTIONS)
 
-    # Ekranga chiqarish
+    # Display on the screen
     cv2.imshow('Holistic Detection', frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-# Yopish
+# Release resources
 cap.release()
 cv2.destroyAllWindows()
