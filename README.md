@@ -3,7 +3,9 @@
 This program utilizes face, body, hand, and pose detectors using the mediapipe library to analyze images and video streams.
 
 
+
 ## Installation
+
 
 To install this program, follow these steps:
 
