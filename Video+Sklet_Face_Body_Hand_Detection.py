@@ -14,6 +14,7 @@ while cap.isOpened():
     if not ret:
         break
 
+    
     # Process face, pose, hand, and body detection using MediaPipe
     results = holistic.process(frame)
 
