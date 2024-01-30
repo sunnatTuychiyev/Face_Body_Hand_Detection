@@ -21,6 +21,7 @@ while cap.isOpened():
     # Process face, body, hand, and pose detection using MediaPipe
     results = holistic.process(frame)
 
+    
     # Add a black background
     frame[:] = [0, 0, 0]
 
