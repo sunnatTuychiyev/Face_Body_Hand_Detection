@@ -8,7 +8,8 @@ holistic = mp_holistic.Holistic(min_detection_confidence=0.2, min_tracking_confi
 # Open camera stream
 cap = cv2.VideoCapture(0)
 
-# Skeleton position
+
+# Skeleton position.
 sklet_x, sklet_y = 50, 50
 
 while cap.isOpened():
@@ -53,7 +54,8 @@ while cap.isOpened():
             x, y = int(landmark.x * iw), int(landmark.y * ih)
             cv2.circle(frame, (x, y), 2, (0, 0, 255), -1)
 
-    # Draw body connections
+    # Draw body connections.
+    
     if results.pose_landmarks:
         # Connect the anatomical landmarks
         mp_drawing = mp.solutions.drawing_utils
@@ -63,11 +65,12 @@ while cap.isOpened():
         mp_drawing.draw_landmarks(frame, results.right_hand_landmarks, mp_holistic.HAND_CONNECTIONS)
         mp_drawing.draw_landmarks(frame, results.left_hand_landmarks, mp_holistic.HAND_CONNECTIONS)
 
-    # Display on the screen
+    # Display on the screen.
     cv2.imshow('Holistic Detection', frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
+
 
 # Release resources
 cap.release()
